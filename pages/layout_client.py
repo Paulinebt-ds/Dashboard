@@ -188,8 +188,6 @@ predict_method = model.predict_proba
 layout = html.Div([
     #dcc.Store(id='memory-output'),
     #####################
-    # Row 1 : Header
-    get_header(),
 
     #####################
     # Row 2 : Nav bar
@@ -362,7 +360,7 @@ layout = html.Div([
 )
 def filter_id(caseval):
     if type(caseval) is int:
-        data = data_domain[data_domain["SK_ID_CURR"] == int(str(caseval))]
+        data = data_domain[data_domain["SK_ID_CURR"] == int(float(str(caseval)))]
     else:
         data = data_domain
     return data.to_dict('records')
@@ -430,7 +428,7 @@ def update_card(submit_n_clicks, reset_n_clicks, score):
 
 
 @callback(Output('case-dropdown', 'value'),
-              Input('reset-button', 'n_clicks'))
+           Input('reset-button', 'n_clicks'))
 def clear_form(n_clicks):
     """Empty input textarea"""
     return ""

@@ -9,7 +9,6 @@ from dash.dependencies import Input, Output
 from ressources.components.pages_plugin import *
 import plotly.express as px
 import plotly.graph_objects as go
-import base64
 import pandas as pd
 import numpy as np
 
@@ -76,46 +75,7 @@ recapdiv = {
     'padding-bottom' : '5px',
     'background-color' : 'rgb(251, 251, 252, 0.1)'
     }
-#####################
-# Header with logo
-image_filename = 'C:/Users/pbliv/PycharmProjects/flaskProject/ressources/assets/logo_pret_a_depenser.PNG'
-encoded_image = base64.b64encode(open(image_filename, 'rb').read())
-def get_header():
 
-    header = html.Div([
-
-        html.Div([], className = 'col-2'), #Same as img width, allowing to have the title centrally aligned
-
-        html.Div([
-            html.H1(children='Dashboard',
-                    style = {'textAlign' : 'center',
-                            'color': 'white'}
-            )],
-            className='col-8',
-            style = {'padding-top' : '1%'}
-        ),
-
-        html.Div([
-            html.Img(
-                    src = "C:/Users/pbliv/PycharmProjects/flaskProject/ressources/assets/logo_pret_a_depenser.PNG/png;base64,{}".format(encoded_image),
-                    height = '100',
-                    width = '200',
-                    className='img')
-
-            ],
-            className = 'col-2',
-            style = {
-                    'align-items': 'center',
-                    'padding-top' : '1%',
-                    'height' : '100'})
-
-        ],
-        className = 'row',
-        style = {'height' : '4%',
-                'background-color' : corporate_colors['superdark-green']}
-        )
-
-    return header
 #####################
 # Nav bar
 def get_navbar(p = 'sales'):
@@ -336,12 +296,12 @@ for val in temp.index:
     temp_y0.append(np.sum(app_train["TARGET"][app_train["NAME_INCOME_TYPE"]==val] == 0))
 trace1 = go.Bar(
     x = temp.index,
-    y = (temp_y1 / temp.sum()) * 100,
+    y = (temp_y1/temp.sum()) * 100,
     name='NO'
 )
 trace2 = go.Bar(
     x = temp.index,
-    y = (temp_y0 / temp.sum()) * 100,
+    y = (temp_y0/temp.sum()) * 100,
     name='YES'
 )
 
@@ -423,20 +383,14 @@ layout_occupation = go.Layout(
 
 fig_occupation_type_target = go.Figure(data=data, layout=layout_occupation)
 
-
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-server = app.server
 dash.register_page(__name__, path="/apps/global")
 ## Layout de la page globale
 layout = html.Div([
 
     #####################
-    #Row 1 : Header
-    get_header(),
-
     #####################
     #Row 2 : Nav bar
-    get_navbar('Client'),
+    get_navbar('Global'),
     #####################
     #Row 3 : Filters
     html.Div([  # External row

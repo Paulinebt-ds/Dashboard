@@ -111,8 +111,6 @@ recapdiv = {
 ## APP FLASK
 # Start the app
 td_style = {"width": "50%", "margin": "20px"}
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-server = app.server
 
 # Importation de la base "application_train"
 path = "C:/Users/pbliv/Documents/Data Science/P7/application_train.csv"
@@ -122,10 +120,6 @@ app_train = pd.read_csv(path)
 features = app_train.drop(["SK_ID_CURR", "TARGET"], axis=1).columns
 ## Layout de la page client
 layout = html.Div([
-
-    #####################
-    # Row 1 : Header
-    get_header(),
 
     #####################
     # Row 2 : Nav bar
